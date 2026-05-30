@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WinPulse - System Security Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>WinPulse</h1>
+                <p>Security Monitor</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item active" data-page="overview">
+                    <span class="icon">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="processes.html" class="nav-item" data-page="processes">
+                    <span class="icon">⚙️</span>
+                    <span>Processes</span>
+                </a>
+                <a href="network.html" class="nav-item" data-page="network">
+                    <span class="icon">🌐</span>
+                    <span>Network</span>
+                </a>
+                <a href="applications.html" class="nav-item" data-page="applications">
+                    <span class="icon">📱</span>
+                    <span>Applications</span>
+                </a>
+                <a href="filesystem.html" class="nav-item" data-page="filesystem">
+                    <span class="icon">📁</span>
+                    <span>File System</span>
+                </a>
+                <a href="alerts.html" class="nav-item" data-page="alerts">
+                    <span class="icon">🚨</span>
+                    <span>Alerts</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="dot online"></span>
+                    <span id="connection-status">Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="page-title">System Overview</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search..." id="search-input">
+                    </div>
+                    <div class="user-menu">
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Overview Page -->
+                <section id="overview-page" class="page active">
+                    <!-- Risk Score Card -->
+                    <div class="card risk-card">
+                        <h3>Risk Score</h3>
+                        <div class="risk-gauge">
+                            <svg viewBox="0 0 200 200" class="gauge">
+                                <circle cx="100" cy="100" r="90" class="gauge-bg"></circle>
+                                <circle cx="100" cy="100" r="90" class="gauge-fill" id="risk-gauge-fill"></circle>
+                            </svg>
+                            <div class="risk-value">
+                                <span id="risk-score">0</span>
+                                <span class="risk-label">/ 100</span>
+                            </div>
+                        </div>
+                        <p class="risk-status" id="risk-status">Calculating...</p>
+                    </div>
+
+                    <!-- System Status Cards -->
+                    <div class="cards-grid">
+                        <div class="card">
+                            <h4>Warmup Status</h4>
+                            <div class="status-content">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="warmup-progress" style="width: 0%"></div>
+                                </div>
+                                <p id="warmup-text">0 / 7 days</p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h4>Anomalies (24h)</h4>
+                            <div class="status-content">
+                                <div class="big-number" id="anomaly-count">0</div>
+                                <p id="anomaly-breakdown">High: 0 | Medium: 0 | Low: 0</p>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h4>Active Agents</h4>
+                            <div class="status-content">
+                                <div class="agents-list" id="agents-list">
+                                    <div class="agent-item">
+                                        <span class="agent-name">Loading...</span>
+                                        <span class="agent-status">●</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h4>System Health</h4>
+                            <div class="status-content">
+                                <div class="health-indicator" id="health-indicator">
+                                    <span class="health-dot"></span>
+                                    <span id="health-text">Good</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Anomalies -->
+                    <div class="card">
+                        <h3>Recent Anomalies</h3>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Metric</th>
+                                        <th>Agent</th>
+                                        <th>Severity</th>
+                                        <th>Confidence</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-anomalies">
+                                    <tr>
+                                        <td colspan="5" class="empty-state">No anomalies detected</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- WebSocket Connection Status -->
+    <div id="connection-toast" class="toast hidden">
+        <span id="toast-message">Connecting...</span>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="ui.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

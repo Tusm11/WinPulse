@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Activity - WinPulse</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>WinPulse</h1>
+                <p>Security Monitor</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item" data-page="overview">
+                    <span class="icon">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="processes.html" class="nav-item" data-page="processes">
+                    <span class="icon">⚙️</span>
+                    <span>Processes</span>
+                </a>
+                <a href="network.html" class="nav-item active" data-page="network">
+                    <span class="icon">🌐</span>
+                    <span>Network</span>
+                </a>
+                <a href="applications.html" class="nav-item" data-page="applications">
+                    <span class="icon">📱</span>
+                    <span>Applications</span>
+                </a>
+                <a href="filesystem.html" class="nav-item" data-page="filesystem">
+                    <span class="icon">📁</span>
+                    <span>File System</span>
+                </a>
+                <a href="alerts.html" class="nav-item" data-page="alerts">
+                    <span class="icon">🚨</span>
+                    <span>Alerts</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="dot online"></span>
+                    <span id="connection-status">Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="page-title">Network Activity</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search..." id="search-input">
+                    </div>
+                    <div class="user-menu">
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="cards-grid">
+                    <div class="card">
+                        <h4>Bytes Sent</h4>
+                        <div class="status-content">
+                            <canvas id="sent-chart" width="300" height="100"></canvas>
+                            <p id="sent-value">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Bytes Received</h4>
+                        <div class="status-content">
+                            <canvas id="received-chart" width="300" height="100"></canvas>
+                            <p id="received-value">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Active Connections</h4>
+                        <div class="status-content">
+                            <div class="big-number" id="connection-count">0</div>
+                            <p id="connection-status-text">Monitoring...</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Unknown IPs</h4>
+                        <div class="status-content">
+                            <div class="big-number" id="unknown-ips">0</div>
+                            <p>Flagged for review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Network Anomalies</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Process</th>
+                                    <th>Remote IP</th>
+                                    <th>Port</th>
+                                    <th>Bytes</th>
+                                    <th>Severity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="network-anomalies">
+                                <tr>
+                                    <td colspan="6" class="empty-state">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="connection-toast" class="toast hidden">
+        <span id="toast-message">Connecting...</span>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="ui.js"></script>
+    <script src="pages/network.js"></script>
+</body>
+</html>

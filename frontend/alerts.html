@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts & Anomalies - WinPulse</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>WinPulse</h1>
+                <p>Security Monitor</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item" data-page="overview">
+                    <span class="icon">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="processes.html" class="nav-item" data-page="processes">
+                    <span class="icon">⚙️</span>
+                    <span>Processes</span>
+                </a>
+                <a href="network.html" class="nav-item" data-page="network">
+                    <span class="icon">🌐</span>
+                    <span>Network</span>
+                </a>
+                <a href="applications.html" class="nav-item" data-page="applications">
+                    <span class="icon">📱</span>
+                    <span>Applications</span>
+                </a>
+                <a href="filesystem.html" class="nav-item" data-page="filesystem">
+                    <span class="icon">📁</span>
+                    <span>File System</span>
+                </a>
+                <a href="alerts.html" class="nav-item active" data-page="alerts">
+                    <span class="icon">🚨</span>
+                    <span>Alerts</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="dot online"></span>
+                    <span id="connection-status">Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="page-title">Alerts & Anomalies</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search..." id="search-input">
+                    </div>
+                    <div class="user-menu">
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="cards-grid">
+                    <div class="card">
+                        <h4>High Severity</h4>
+                        <div class="status-content">
+                            <div class="big-number" id="high-count">0</div>
+                            <p>Requires immediate attention</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Medium Severity</h4>
+                        <div class="status-content">
+                            <div class="big-number" id="medium-count">0</div>
+                            <p>Monitor closely</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Low Severity</h4>
+                        <div class="status-content">
+                            <div class="big-number" id="low-count">0</div>
+                            <p>For reference</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Anomaly Rate</h4>
+                        <div class="status-content">
+                            <div class="big-number" id="anomaly-rate">0</div>
+                            <p id="rate-unit">per hour</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>All Anomalies</h3>
+                    <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="high">High</button>
+                        <button class="filter-btn" data-filter="medium">Medium</button>
+                        <button class="filter-btn" data-filter="low">Low</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Metric</th>
+                                    <th>Agent</th>
+                                    <th>Value</th>
+                                    <th>Expected</th>
+                                    <th>Z-Score</th>
+                                    <th>Severity</th>
+                                    <th>Confidence</th>
+                                </tr>
+                            </thead>
+                            <tbody id="anomalies-table">
+                                <tr>
+                                    <td colspan="8" class="empty-state">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Correlated Anomalies</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Agents Involved</th>
+                                    <th>Count</th>
+                                    <th>Correlation Score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="correlated-table">
+                                <tr>
+                                    <td colspan="4" class="empty-state">No correlated anomalies</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="connection-toast" class="toast hidden">
+        <span id="toast-message">Connecting...</span>
+    </div>
+
+    <style>
+        .filter-btn {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+
+    <script src="api.js"></script>
+    <script src="ui.js"></script>
+    <script src="pages/alerts.js"></script>
+</body>
+</html>

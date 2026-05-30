@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processes & Resources - WinPulse</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>WinPulse</h1>
+                <p>Security Monitor</p>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item" data-page="overview">
+                    <span class="icon">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="processes.html" class="nav-item active" data-page="processes">
+                    <span class="icon">⚙️</span>
+                    <span>Processes</span>
+                </a>
+                <a href="network.html" class="nav-item" data-page="network">
+                    <span class="icon">🌐</span>
+                    <span>Network</span>
+                </a>
+                <a href="applications.html" class="nav-item" data-page="applications">
+                    <span class="icon">📱</span>
+                    <span>Applications</span>
+                </a>
+                <a href="filesystem.html" class="nav-item" data-page="filesystem">
+                    <span class="icon">📁</span>
+                    <span>File System</span>
+                </a>
+                <a href="alerts.html" class="nav-item" data-page="alerts">
+                    <span class="icon">🚨</span>
+                    <span>Alerts</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="dot online"></span>
+                    <span id="connection-status">Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="page-title">Processes & Resources</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search..." id="search-input">
+                    </div>
+                    <div class="user-menu">
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="cards-grid">
+                    <div class="card">
+                        <h4>CPU Usage</h4>
+                        <div class="status-content">
+                            <canvas id="cpu-chart" width="300" height="100"></canvas>
+                            <p id="cpu-value">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Memory Usage</h4>
+                        <div class="status-content">
+                            <canvas id="memory-chart" width="300" height="100"></canvas>
+                            <p id="memory-value">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Disk I/O</h4>
+                        <div class="status-content">
+                            <canvas id="disk-chart" width="300" height="100"></canvas>
+                            <p id="disk-value">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4>Battery Status</h4>
+                        <div class="status-content">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="battery-fill" style="width: 0%"></div>
+                            </div>
+                            <p id="battery-value">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Process Anomalies</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Process</th>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                    <th>Severity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="process-anomalies">
+                                <tr>
+                                    <td colspan="5" class="empty-state">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- WebSocket Connection Status -->
+    <div id="connection-toast" class="toast hidden">
+        <span id="toast-message">Connecting...</span>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="ui.js"></script>
+    <script src="pages/processes.js"></script>
+</body>
+</html>
