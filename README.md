@@ -7,13 +7,13 @@ A lightweight, real-time Windows security monitoring system that learns your nor
 WinPulse monitors 7 different aspects of your Windows system and builds a personalized baseline of normal behavior. Instead of scanning for known malware signatures, it detects **deviations from your normal patterns** - the real indicator of compromise.
 
 **Key Features:**
-- 🔍 Real-time monitoring of 7 system aspects
-- 📊 Statistical anomaly detection (Prophet + Z-scores)
-- 🔗 Multi-agent correlation for complex attack patterns
-- 🎯 Zero false positives after 7-day warmup
-- 📱 Live dashboard with 6 pages of metrics
-- 🚀 Lightweight (~200MB RAM, <5% CPU)
-- 🔐 100% local - no cloud, no external APIs (optional Groq for AI)
+- Real-time monitoring of 7 system aspects
+- Statistical anomaly detection (Prophet + Z-scores)
+- Multi-agent correlation for complex attack patterns
+- Zero false positives after 7-day warmup
+- Live dashboard with 6 pages of metrics
+- Lightweight (~200MB RAM, <5% CPU)
+- 100% local - no cloud, no external APIs (optional Groq for AI)
 
 ---
 
@@ -88,10 +88,10 @@ python start_all.py
 ```
 
 This launches:
-- ✅ Frontend Server (port 8080)
-- ✅ 7 Monitoring Agents
-- ✅ Orchestrator (anomaly detection)
-- ✅ FastAPI Backend (port 8000)
+- Frontend Server (port 8080)
+- 7 Monitoring Agents
+- Orchestrator (anomaly detection)
+- FastAPI Backend (port 8000)
 
 ### Access Dashboard
 Open browser: `http://localhost:8080`
@@ -324,4 +324,4 @@ For issues:
 
 **Version**: 1.0.0  
 **Last Updated**: May 2026  
-**Status**: Production Ready ✅
+**Status**: Production Ready 
