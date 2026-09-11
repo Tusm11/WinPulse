@@ -117,7 +117,6 @@ Orchestrator analyzes each event:
 - Gets expected value from Prophet model
 - Calculates z-score: `(actual - expected) / std_dev`
 - Computes p-value: probability of seeing this value normally
-- Flags as anomaly if p-value < 0.05
 
 ### 3. Correlation
 Groups anomalies within 5-minute windows:
